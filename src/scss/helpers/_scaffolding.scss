@@ -1,0 +1,29 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: $base-fontSize;
+}
+
+body {
+    font-family: $base-font;
+    font-size: 1.2rem;
+    color: $base-color;
+    background-color: $base-bg-color;
+}
+
+.excel {
+    position: relative;
+}
+
+.shared-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+}

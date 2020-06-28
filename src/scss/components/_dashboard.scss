@@ -1,0 +1,95 @@
+.dashboard {
+
+    &__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        @include flexCenter;
+        background-color: $base-bg-color;
+        z-index: 1000;
+        box-shadow: 0 5px 15px rgba($color: $base-color, $alpha: 0.3);
+
+        .header__title {
+            font-size: 2.5rem;
+        }
+    }
+
+    &__new {
+        margin-top: 62px;
+        padding: 1.5rem;
+        background-color: $color-newTable;
+
+        .create-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+    }
+
+    &__create {
+        display: block;
+        width: 150px;
+        height: 150px;
+        border-radius: 5px;
+        background-color: $base-bg-color;
+        text-decoration: none;
+        text-align: center;
+        font-size: 2rem;
+        border: 1px solid $color-newTable;
+        color: $base-color;
+        transition: .15s linear;
+        @include flexCenter;
+        &:hover {
+            color: green;
+            border-color: green;
+        }
+    }
+
+    &__table {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 1rem;
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            &__name,
+            &__date {
+                font-size: 1.7rem;
+                font-weight: 600;
+                color: $color-tableItem;
+            }
+        }
+
+        .table-list {
+            @include clearList; 
+            
+            &__record {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                padding: 12px 0 ;
+                transition: .15s linear;
+                &:hover {
+                    border-radius: 25px;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                    background-color: $color-newTable;
+                }
+
+                &--item {
+                    text-decoration: none;
+                    font-size: 1.3rem;
+                    color: $color-tableItem;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    
+}
