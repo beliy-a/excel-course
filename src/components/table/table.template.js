@@ -4,27 +4,36 @@ const CHAR_CODE = {
 };
 
 function createRow(content, index) {
+  const resize = index ? '<div class="row__resize" data-resize="row"></div>' :
+   '';
+
   return `
-     <div class="row">
-        <div class="row__info">${index ? index : ''}</div>
+     <div class="row" data-type="resizable">
+        <div class="row__info">
+          ${index ? index : ''}
+          ${resize}
+        </div>
         <div class="row__data">${content}</div>
     </div>
   `;
 }
 
-function getCharCode() {
-  return String.fromCharCode(CHAR_CODE.A++);
+function getCharCode(index) {
+  return String.fromCharCode(CHAR_CODE.A + index);
 }
 
-function createCol() {
+function createCol(_, index) {
   return `
-      <div class="column">${getCharCode()}</div>
+      <div class="column" data-type="resizable" data-col=${getCharCode(index)}>
+        ${getCharCode(index)}
+        <div class="column__resize" data-resize="col"></div>
+      </div>
   `;
 }
 
-function createCell() {
+function createCell(_, index) {
   return `
-    <div class="cell" contenteditable></div>
+    <div class="cell" contenteditable data-col=${getCharCode(index)}></div>
   `;
 }
 

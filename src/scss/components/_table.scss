@@ -1,6 +1,8 @@
 .excel__table {
     padding: 94px 0 5px 0;
     overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
 
     .row {
         display: flex;
@@ -15,6 +17,15 @@
         border: 1px solid $border-color;
         border-top: none;
         background-color: $color-row;
+        position: relative;
+
+        .row__resize {
+            left: 0;
+            height: 4px;
+            &:hover {
+                cursor: row-resize;
+            }
+        }
     }
 
     .row__data {
@@ -31,6 +42,27 @@
         border-left: none;
         white-space: nowrap;
         color: $color-column;
+        position: relative;
+
+        &__resize {
+            top: 0;
+            width: 4px;
+            &:hover {
+                cursor: col-resize;
+            }
+        }
+    }
+
+    .column__resize, .row__resize {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+        background-color: $color-cell-selected;
+        z-index: 1000;
+        &:hover {
+            opacity: 1;
+        }
     }
 
     .cell {
@@ -45,6 +77,14 @@
         &.selected {
             outline: 3px solid $color-cell-selected;
         }
+    }
+
+    .resize__cursor {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: blue;
     }
 
    

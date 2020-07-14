@@ -14,6 +14,10 @@ class Dom {
     return this.$el.innerHTML.trim();
   }
 
+  all(selector) {
+    return this.$el.querySelectorAll(selector);
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback);
   }
@@ -39,6 +43,29 @@ class Dom {
     }
 
     return this;
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector));
+  }
+
+  get dataset() {
+    return this.$el.dataset;
+  }
+
+  getClientReacts() {
+    return this.$el.getBoundingClientRect();
+  }
+
+  css(styles = {}) {
+    for (const key in styles) {
+      if (Object.prototype.hasOwnProperty.call(styles, key)) {
+        this.$el.style[key] = styles[key];
+      }
+    }
+  }
+  domElement() {
+    return this.$el;
   }
 }
 
