@@ -5,3 +5,18 @@ export function capitalize(string) {
 
   return `${string[0].toUpperCase()}${string.slice(1)}`;
 }
+
+
+export function range(start, end) {
+  const arrayOfElements = [];
+  if (start > end) {
+    [start, end] = [end, start];
+  }
+
+  for (let i = start; i <= end; i++) {
+    arrayOfElements.push(i);
+  }
+
+  return arrayOfElements;
+}
+

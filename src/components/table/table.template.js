@@ -31,10 +31,18 @@ function createCol(_, index) {
   `;
 }
 
-function createCell(_, index) {
-  return `
-    <div class="cell" contenteditable data-col=${getCharCode(index)}></div>
+function createCell(row) {
+  return function(_, index) {
+    return `
+    <div 
+      class="cell" 
+      contenteditable 
+      data-col="${getCharCode(index)}"
+      data-type="cell"
+      data-id="${row}:${index}">
+    </div>
   `;
+  };
 }
 
 
@@ -47,14 +55,14 @@ export function createTable(rows = 15) {
       .map(createCol)
       .join('');
 
-  const row = new Array(numberOfColumns)
-      .fill('')
-      .map(createCell)
-      .join('');
 
   numberOfRows.push(createRow(columns));
 
   for (let i = 0; i < rows; i++) {
+    const row = new Array(numberOfColumns)
+        .fill('')
+        .map(createCell(i))
+        .join('');
     numberOfRows.push(createRow(row, i + 1));
   }
 

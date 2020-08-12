@@ -1,8 +1,8 @@
 class Dom {
   constructor(selector) {
     this.$el = typeof selector === 'string' ?
-        document.querySelector(selector) :
-        selector;
+      document.querySelector(selector) :
+      selector;
   }
 
   html(html) {
@@ -14,8 +14,12 @@ class Dom {
     return this.$el.innerHTML.trim();
   }
 
-  all(selector) {
+  findAll(selector) {
     return this.$el.querySelectorAll(selector);
+  }
+
+  find(selector) {
+    return $(this.$el.querySelector(selector));
   }
 
   on(eventType, callback) {
@@ -45,6 +49,24 @@ class Dom {
     return this;
   }
 
+  focus() {
+    this.$el.focus();
+    return this;
+  }
+
+  blur() {
+    this.$el.blur();
+    return this;
+  }
+
+  set text(text) {
+    this.$el.textContent = text;
+  }
+
+  get text() {
+    return this.$el.innerText.trim();
+  }
+
   closest(selector) {
     return $(this.$el.closest(selector));
   }
@@ -64,8 +86,30 @@ class Dom {
       }
     }
   }
-  domElement() {
-    return this.$el;
+
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+  }
+
+  contains(className) {
+    return this.$el.classList.contains(className);
+  }
+  getStyles(prop) {
+    return getComputedStyle(this.$el).getPropertyValue(prop);
+  }
+
+  id(parse) {
+    if (parse) {
+      return {
+        row: +(this.$el.dataset.id.split(':')[0]),
+        col: +(this.$el.dataset.id.split(':')[1]),
+      };
+    }
+    return this.$el.dataset.id;
   }
 }
 

@@ -76,6 +76,7 @@
         outline: none;
         &.selected {
             outline: 3px solid $color-cell-selected;
+            outline-offset: -2px;
         }
     }
 
