@@ -3,13 +3,27 @@ import {DomListener} from '@core/DomListener';
 export class ExcelComponent extends DomListener {
   constructor($root, options = {}) {
     super($root, options.listeners);
-
     this.name = options.name || '';
+    this.observer = options.observer;
+    this.unsubscribers = [];
+
+    this.prepare();
   }
-  // returns component template
+
   toHTML() {
     return '';
   }
+
+  $emit(eventType, ...args) {
+    this.observer.notifySubscribers(eventType, ...args);
+  }
+
+  $on(eventType, fn) {
+    const unsub = this.observer.subscribe(eventType, fn);
+    this.unsubscribers.push(unsub);
+  }
+
+  prepare() {}
 
   init() {
     this.initDomListeners();
@@ -17,5 +31,6 @@ export class ExcelComponent extends DomListener {
 
   destroy() {
     this.removeDomListeners();
+    this.unsubscribers.forEach(unsub => unsub());
   }
 }

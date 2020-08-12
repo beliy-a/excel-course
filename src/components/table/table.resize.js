@@ -6,8 +6,7 @@ export function resizeTable(event, $root) {
   const domRect = $parent.getClientReacts();
   const isColumn = $resizer.dataset.resize === 'col' ? true : false;
   const cellProperty = isColumn ? 'min-width' : 'min-height';
-  const minCellValue = parseInt(getComputedStyle($parent.domElement())
-      .getPropertyValue(cellProperty));
+  const minCellValue = parseInt($parent.getStyles(cellProperty));
   let colElements;
   let value;
 
@@ -18,7 +17,7 @@ export function resizeTable(event, $root) {
       'bottom': `-${heightRoot}px`,
     });
     const dataCol = $parent.closest('[data-col]').dataset.col;
-    colElements = $root.all(`[data-col="${dataCol}"]`);
+    colElements = $root.findAll(`[data-col="${dataCol}"]`);
   } else {
     const widthRoot = $root.getClientReacts().right;
     $resizer.css({
