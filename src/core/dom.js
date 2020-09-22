@@ -60,11 +60,17 @@ class Dom {
   }
 
   set text(text) {
-    this.$el.textContent = text;
+    if (typeof text !== 'undefined') {
+      this.$el.textContent = text;
+    }
   }
 
   get text() {
     return this.$el.innerText.trim();
+  }
+
+  get val() {
+    return this.$el.value.trim();
   }
 
   closest(selector) {
@@ -99,10 +105,16 @@ class Dom {
     return this.$el.classList.contains(className);
   }
   getStyles(prop) {
+    if (Array.isArray(prop)) {
+      return prop.reduce((res, style) => {
+        res[style] = this.$el.style[style];
+        return res;
+      }, {});
+    }
     return getComputedStyle(this.$el).getPropertyValue(prop);
   }
 
-  id(parse) {
+  id(parse = false) {
     if (parse) {
       return {
         row: +(this.$el.dataset.id.split(':')[0]),
@@ -110,6 +122,14 @@ class Dom {
       };
     }
     return this.$el.dataset.id;
+  }
+
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value);
+      return this;
+    }
+    return this.$el.getAttribute(name);
   }
 }
 
