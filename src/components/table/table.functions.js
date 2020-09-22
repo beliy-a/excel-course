@@ -62,3 +62,10 @@ export function nextSelector(key, {row, col}) {
 
   return id;
 }
+
+export function setStyles(prop, value = '', ...args) {
+  if (value) {
+    value = `${prop}:${value}${[...args]}`;
+  }
+  return value;
+}

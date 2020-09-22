@@ -23,4 +23,12 @@ export class TableSelection {
     this.group.forEach($el => $el.removeClass(this.#className));
     this.group = [];
   }
+
+  applyStyles(styles = {}) {
+    this.group.forEach($el => $el.css(styles));
+  }
+
+  get ids() {
+    return this.group.map($el => $el.id());
+  }
 }

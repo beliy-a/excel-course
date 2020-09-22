@@ -9,7 +9,7 @@
         "linebreak-style": "off",
         "arrow-parens": "off",
         "require-jsdoc": "off",
-        "prefer-const": "off",
+        "prefer-const": "off"
     },
     "extends": [
         "eslint:recommended",
