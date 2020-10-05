@@ -25,7 +25,6 @@ export class CreateStore {
   }
 
   dispatch(action) {
-    console.log('listeners', CreateStore.listeners);
     CreateStore.state = this.rootReducer(CreateStore.state, action);
     CreateStore.listeners.forEach(listener => listener(CreateStore.state));
   }
