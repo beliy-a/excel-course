@@ -1,5 +1,5 @@
 import {TABLE_RESIZE, CHANGE_TEXT, CHANGE_STYLE,
-  APPLY_STYLE, CHANGE_TABLE_NAME} from './types';
+  APPLY_STYLE, CHANGE_TABLE_NAME, OPENED_DATE} from './types';
 
 export function tableResize(data) {
   return {
@@ -33,5 +33,11 @@ export function changeTableName(data) {
   return {
     type: CHANGE_TABLE_NAME,
     data,
+  };
+}
+
+export function openedDate() {
+  return {
+    type: OPENED_DATE,
   };
 }

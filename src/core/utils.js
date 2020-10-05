@@ -74,3 +74,8 @@ export function parse(value = '') {
   }
   return value;
 }
+
+
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
