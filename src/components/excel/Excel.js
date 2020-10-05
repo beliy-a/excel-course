@@ -1,13 +1,13 @@
 import {$} from '@core/dom';
 import {Observer} from '@core/Observer';
 import {StoreSubscriber} from '@core/StoreSubscriber';
+import * as actions from '@/redux/actions';
 
 export class Excel {
-  constructor(selector, {components, store}) {
-    this.$elNode = $(selector);
-    this.components = components || [];
+  constructor(options) {
+    this.components = options.components || [];
     this.observer = new Observer();
-    this.store = store;
+    this.store = options.store;
     this.subscriber = new StoreSubscriber(this.store);
   }
 
@@ -33,8 +33,8 @@ export class Excel {
     return $excel;
   }
 
-  render() {
-    this.$elNode.append(this.getRoot());
+  init() {
+    this.store.dispatch(actions.openedDate());
     this.subscriber.subscribeComponents(this.components);
     this.components.forEach(component => component.init());
   }

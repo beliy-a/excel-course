@@ -1,14 +1,16 @@
 import {ExcelComponent} from '@core/ExcelComponent';
 import {$} from '@core/dom';
 import * as actions from '@/redux/actions';
+import {ActiveRoute} from '@core/router/ActiveRoute';
 
 export class Header extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: 'Header',
-      listeners: ['keydown'],
+      listeners: ['click', 'keydown'],
       ...options,
     });
+    this.options = options;
   }
     static className = 'excel__header';
 
@@ -17,23 +19,39 @@ export class Header extends ExcelComponent {
       return `
       <input type="text" class="header__input" value="${title}">
         <div class="buttons__container">
-            <div class="button">
-                <i class="material-icons">exit_to_app</i>
+            <div class="button" data-button="exit">
+                <i class="material-icons" data-button="exit">exit_to_app</i>
             </div>
-            <div class="button">
-                <i class="material-icons">delete</i>
+            <div class="button" data-button="remove">
+                <i class="material-icons" data-button="remove">delete</i>
             </div>
         </div>
       `;
     }
 
     onKeydown(event) {
-      const keyEnter = event.key === 'Enter' ? 'Enter': undefined;
-      const input = $(event.target);
+      const key = event.key;
+      const $input = $(event.target);
 
-      if (keyEnter) {
-        this.$dispatch(actions.changeTableName({title: input.val}));
-        input.blur();
+      if (key === 'Enter') {
+        this.$dispatch(actions.changeTableName({title: $input.val}));
+        $input.blur();
+      }
+    }
+
+    onClick(event) {
+      const button = $(event.target).dataset.button;
+
+      if (button === 'exit') {
+        ActiveRoute.path = '';
+      }
+
+      if (button === 'remove') {
+        const currentTable = ActiveRoute.path.split('/').join(':');
+        if (confirm('Вы действительно хотите удалить таблицу?')) {
+          localStorage.removeItem(currentTable);
+          ActiveRoute.path = '';
+        }
       }
     }
 }
