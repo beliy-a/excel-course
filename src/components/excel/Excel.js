@@ -21,12 +21,8 @@ export class Excel {
       const component = new Component($el, componentOptions);
       $el.html(component.toHTML());
 
-      if (Component.name === 'Table') {
-        $excel.append($el);
-      } else {
-        $sharedContainer.append($el);
-        $excel.append($sharedContainer);
-      }
+      $sharedContainer.append($el);
+      $excel.append($sharedContainer);
       return component;
     });
 
